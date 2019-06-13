@@ -15,7 +15,11 @@
         "type": "git",
         "url": "git+https://github.com/SlimIO/Lock.git"
     },
-    "keywords": [],
+    "keywords": [
+        "lock",
+        "mutex",
+        "asynchronous"
+    ],
     "author": "SlimIO",
     "license": "MIT",
     "bugs": {
