@@ -2,7 +2,7 @@ declare namespace Lock {
     export type LockHandler = () => void;
 
     interface Options {
-        max?: number;
+        maxConcurrent?: number;
     }
 }
 

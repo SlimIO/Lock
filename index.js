@@ -19,7 +19,7 @@ class Lock {
      * @constructor
      * @memberof Lock#
      * @param {Object} options options
-     * @param {Number} [options.max=5] maximum concurrent lock
+     * @param {Number} [options.maxConcurrent=5] maximum concurrent lock
      *
      * @throws {TypeError}
      */
@@ -27,12 +27,13 @@ class Lock {
         if (!is.plainObject(options)) {
             throw new TypeError("options must be a plainObject");
         }
-        const { max = 5 } = options;
+        const { maxConcurrent = 5 } = options;
 
-        if (typeof max !== "number") {
-            throw new TypeError("max must be number");
+        if (typeof maxConcurrent !== "number") {
+            throw new TypeError("maxConcurrent must be number");
         }
-        Object.defineProperty(this, SymMax, { value: max });
+
+        Object.defineProperty(this, SymMax, { value: maxConcurrent });
         Object.defineProperty(this, SymCurr, { value: 0, writable: true });
     }
 

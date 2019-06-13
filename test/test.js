@@ -11,7 +11,7 @@ avaTest("Export must be a class", (assert) => {
 });
 
 avaTest("Trigger Lock manually", async(assert) => {
-    const asyncLocker = new Lock({ max: 3 });
+    const asyncLocker = new Lock({ maxConcurrent: 3 });
     let count = 0;
 
     async function npmInstall() {
@@ -44,7 +44,7 @@ avaTest("Auto-lock with run method", async(assert) => {
         npmInstall(),
         npmInstall(),
         npmInstall()
-    ], { max: 3 });
+    ], { maxConcurrent: 3 });
 
     assert.is(count, 5);
 });
