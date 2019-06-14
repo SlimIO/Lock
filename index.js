@@ -1,4 +1,4 @@
-// Require Third-party Package
+// Require Third-party Dependencies
 const is = require("@slimio/is");
 
 // SYMBOLS

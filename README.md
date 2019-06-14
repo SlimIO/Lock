@@ -25,10 +25,10 @@ const Lock = require("@slimio/lock");
 const asyncLocker = new Lock({ max: 3 });
 
 async function npmInstall() {
-    const lh = await asyncLocker.lock();
+    const free = await asyncLocker.lock();
     await new Promise((resolve) => setTimeout(resolve, 1000));
     console.log("npm install resolved!");
-    lh.free();
+    free();
 }
 
 async function main() {
