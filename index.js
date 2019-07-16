@@ -1,3 +1,5 @@
+"use strict";
+
 // Require Third-party Dependencies
 const is = require("@slimio/is");
 
@@ -10,16 +12,12 @@ const SymCurr = Symbol("SymCurr");
  * @returns {void}
  */
 
-/**
- * @class Lock
- * @classdesc Asynchronous Lock
- */
 class Lock {
     /**
-     * @constructor
+     * @class Lock
      * @memberof Lock#
-     * @param {Object} options options
-     * @param {Number} [options.maxConcurrent=5] maximum concurrent lock
+     * @param {object} options options
+     * @param {number} [options.maxConcurrent=5] maximum concurrent lock
      *
      * @throws {TypeError}
      */
@@ -38,8 +36,9 @@ class Lock {
     }
 
     /**
-     * @member {Number} max
+     * @member {number} max
      * @memberof Lock#
+     * @returns {number}
      */
     get max() {
         return this[SymMax];
@@ -47,7 +46,7 @@ class Lock {
 
     /**
      * @async
-     * @method lock
+     * @function lock
      * @memberof Lock#
      * @returns {Promise<LockHandler>}
      */
@@ -72,10 +71,10 @@ class Lock {
 
     /**
      * @static
-     * @method all
+     * @function all
      * @memberof Lock#
      * @param {Promise[]} promises promise array
-     * @param {Object} options lock options
+     * @param {object} options lock options
      * @returns {Promise<void>}
      *
      * @throws {TypeError}
