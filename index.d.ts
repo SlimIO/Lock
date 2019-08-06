@@ -11,7 +11,7 @@ declare class Lock {
     static CHECK_INTERVAL_MS: number;
 
     acquireOne(): Promise<Lock.LockHandler>;
-    static all(promises: Promise[], options?: Lock.Options): Promise<any>;
+    static all(promises: Promise<any>[], options?: Lock.Options): Promise<any>;
 }
 
 export = Lock;
