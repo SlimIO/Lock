@@ -10,7 +10,7 @@ declare class Lock {
     constructor(options?: Lock.Options);
     static CHECK_INTERVAL_MS: number;
 
-    lock(): Promise<Lock.LockHandler>;
+    acquireOne(): Promise<Lock.LockHandler>;
     static all(promises: Promise[], options?: Lock.Options): Promise<any>;
 }
 

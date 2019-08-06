@@ -46,11 +46,12 @@ class Lock {
 
     /**
      * @async
-     * @function lock
+     * @function acquireOne
+     * @description Acquire one spot on the locks pool.
      * @memberof Lock#
      * @returns {Promise<LockHandler>}
      */
-    async lock() {
+    async acquireOne() {
         if (this[SymCurr] >= this.max) {
             await new Promise((resolve) => {
                 const timer = setInterval(() => {
@@ -72,6 +73,7 @@ class Lock {
     /**
      * @static
      * @function all
+     * @description A promise.all wrapper that will lock automatically for you
      * @memberof Lock#
      * @param {Promise[]} promises promise array
      * @param {object} options lock options
@@ -86,7 +88,7 @@ class Lock {
         const Locker = new Lock(options);
 
         return Promise.all(promises.map(async(_p) => {
-            const free = await Locker.lock();
+            const free = await Locker.acquireOne();
             try {
                 await _p();
                 free();

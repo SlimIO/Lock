@@ -15,10 +15,14 @@ avaTest("Trigger Lock manually", async(assert) => {
     let count = 0;
 
     async function npmInstall() {
-        const free = await asyncLocker.lock();
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        count++;
-        free();
+        const free = await asyncLocker.acquireOne();
+        try {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            count++;
+        }
+        finally {
+            free();
+        }
     }
 
     await Promise.all([
