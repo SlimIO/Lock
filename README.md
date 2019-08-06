@@ -3,10 +3,10 @@
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/SlimIO/is/commit-activity)
 ![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
 
-SlimIO Asynchronous Lock Handler
+SlimIO Asynchronous Handler Mutex "Like" Lock. This package has been created to easily lock parallel execution of JavaScript Asynchronous function.
 
 ## Requirements
-- Node.js v10 or higher
+- [Node.js](https://nodejs.org/en/) v10 or higher
 
 ## Getting Started
 
@@ -22,26 +22,27 @@ $ yarn add @slimio/lock
 ```js
 const Lock = require("@slimio/lock");
 
-const asyncLocker = new Lock({ max: 3 });
+const asyncLocker = new Lock({ maxConcurrent: 3 });
 
 async function npmInstall() {
-    const free = await asyncLocker.lock();
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log("npm install resolved!");
-    free();
+    const free = await asyncLocker.acquireOne();
+    try {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        console.log("npm install resolved!");
+    }
+    finally {
+        free();
+    }
 }
 
-async function main() {
-    // Run 3 per 3 methods
-    await Promise.all([
-        npmInstall(),
-        npmInstall(),
-        npmInstall(),
-        npmInstall(),
-        npmInstall()
-    ]);
-}
-main().catch(console.error);
+// Run 3 per 3 methods
+Promise.all([
+    npmInstall(),
+    npmInstall(),
+    npmInstall(),
+    npmInstall(),
+    npmInstall()
+]).then(() => console.log("all done!")).catch(console.error);
 ```
 
 ## API
@@ -69,12 +70,15 @@ await Lock.all([
     npmInstall(),
     npmInstall(),
     npmInstall()
-], { max: 3 });
+], { maxConcurrent: 3 });
 ```
 </details>
 
 ## Dependencies
-This project have no dependencies.
+
+|Name|Refactoring|Security Risk|Usage|
+|---|---|---|---|
+|[@slimio/is](https://github.com/SlimIO/is)|Minor|Low|Type checker|
 
 ## License
 MIT
