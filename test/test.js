@@ -1,9 +1,9 @@
 // Require Third-party Dependencies
 const avaTest = require("ava");
+const is = require("@slimio/is");
 
 // Require Internal Dependencies
 const Lock = require("../");
-const is = require("@slimio/is");
 
 avaTest("Export must be a class", (assert) => {
     assert.true(is.classObject(Lock));
