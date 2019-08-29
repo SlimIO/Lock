@@ -10,6 +10,12 @@ avaTest("Export must be a class", (assert) => {
     assert.is(Lock.name, "Lock");
 });
 
+avaTest("maxConcurrent must be typeof number", (assert) => {
+    assert.throws(() => new Lock({ maxConcurrent: "10" }), {
+        instanceOf: TypeError, message: "maxConcurrent must be a number"
+    })
+});
+
 avaTest("Trigger Lock manually", async(assert) => {
     const asyncLocker = new Lock({ maxConcurrent: 3 });
     let count = 0;

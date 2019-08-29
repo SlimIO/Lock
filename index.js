@@ -21,9 +21,8 @@ class Lock {
      */
     constructor(options = Object.create(null)) {
         const { maxConcurrent = 5 } = options;
-
         if (typeof maxConcurrent !== "number") {
-            throw new TypeError("maxConcurrent must be number");
+            throw new TypeError("maxConcurrent must be a number");
         }
 
         Object.defineProperty(this, SymWaits, { value: [] });
