@@ -61,7 +61,7 @@ class Lock {
         }
         this[SymCurr]++;
 
-        return this.freeOne.bind(this);
+        return () => this.freeOne();
     }
 
     /**
@@ -70,9 +70,9 @@ class Lock {
      * @returns {void}
      */
     freeOne() {
-        if (this.running - 1 < this.max) {
-            const resolve = this[SymWaits].shift();
+        if (this.running > 0) {
             this[SymCurr]--;
+            const resolve = this[SymWaits].shift();
             resolve && resolve();
         }
     }

@@ -45,3 +45,27 @@ avaTest("Trigger Lock manually", async(assert) => {
     ]);
     assert.is(count, 9);
 });
+
+avaTest("Trigger Lock with default maxConcurrent", async(assert) => {
+    const asyncLocker = new Lock();
+    asyncLocker.freeOne();
+    let count = 0;
+
+    async function npmInstall() {
+        const free = await asyncLocker.acquireOne();
+
+        try {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            count++;
+        }
+        finally {
+            free();
+        }
+    }
+
+    await Promise.all([
+        npmInstall(),
+        npmInstall()
+    ]);
+    assert.is(count, 2);
+});
