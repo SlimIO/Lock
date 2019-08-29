@@ -47,6 +47,17 @@ Promise.all([
 
 ## API
 
+### Properties
+
+```ts
+declare class Lock {
+    public readonly max: number;
+    public readonly running: number;
+}
+```
+
+### Methods
+
 <details><summary>acquireOne(): Promise< () => void ></summary>
 <br />
 Create a new lock counter. Return a function that you need to execute to free the counter/lock.
@@ -61,9 +72,7 @@ free an acquired lock (or do nothing if there is no lock acquired yet).
 
 ## Dependencies
 
-|Name|Refactoring|Security Risk|Usage|
-|---|---|---|---|
-|[@slimio/is](https://github.com/SlimIO/is)|Minor|Low|Type checker|
+This project have no dependencies.
 
 ## License
 MIT
