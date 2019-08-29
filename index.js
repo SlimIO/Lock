@@ -46,7 +46,7 @@ class Lock {
      * @returns {number}
      */
     get running() {
-        return this[SymWaits].length;
+        return this[SymCurr];
     }
 
     /**
@@ -57,9 +57,10 @@ class Lock {
      * @returns {Promise<LockHandler>}
      */
     async acquireOne() {
-        if (this.running >= this.max) {
+        if (this[SymCurr] >= this.max) {
             await new Promise((resolve) => this[SymWaits].push(resolve));
         }
+        this[SymCurr]++;
 
         return this.freeOne.bind(this);
     }
@@ -72,6 +73,7 @@ class Lock {
     freeOne() {
         if (this.running - 1 < this.max) {
             const resolve = this[SymWaits].shift();
+            this[SymCurr]--;
             resolve && resolve();
         }
     }
