@@ -5,6 +5,7 @@
 ![dep](https://img.shields.io/david/SlimIO/Lock)
 ![size](https://img.shields.io/bundlephobia/min/@slimio/lock)
 [![Known Vulnerabilities](https://snyk.io//test/github/SlimIO/Lock/badge.svg?targetFile=package.json)](https://snyk.io//test/github/SlimIO/Lock?targetFile=package.json)
+[![Build Status](https://travis-ci.com/SlimIO/Lock.svg?branch=master)](https://travis-ci.com/SlimIO/Lock)
 
 SlimIO Asynchronous Handler Mutex "Like" Lock. This package has been created to easily lock parallel execution of JavaScript Asynchronous function.
 
