@@ -1,6 +1,4 @@
 declare namespace Lock {
-    export type LockHandler = () => void;
-
     interface Options {
         maxConcurrent?: number;
     }
@@ -8,10 +6,12 @@ declare namespace Lock {
 
 declare class Lock {
     constructor(options?: Lock.Options);
+    public readonly max: number;
+    public readonly running: number;
     static CHECK_INTERVAL_MS: number;
 
-    acquireOne(): Promise<Lock.LockHandler>;
-    static all(promises: Promise<any>[], options?: Lock.Options): Promise<any>;
+    acquireOne(): Promise<() => void>;
+    freeOne(): void;
 }
 
 export = Lock;

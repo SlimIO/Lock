@@ -34,22 +34,3 @@ avaTest("Trigger Lock manually", async(assert) => {
     ]);
     assert.is(count, 5);
 });
-
-avaTest("Auto-lock with run method", async(assert) => {
-    let count = 0;
-    async function npmInstall() {
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        count++;
-    }
-
-    await Lock.all([
-        npmInstall(),
-        npmInstall(),
-        npmInstall(),
-        npmInstall(),
-        npmInstall()
-    ], { maxConcurrent: 3 });
-
-    assert.is(count, 5);
-});
-

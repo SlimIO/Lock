@@ -1,11 +1,9 @@
 "use strict";
 
-// Require Third-party Dependencies
-const is = require("@slimio/is");
-
 // SYMBOLS
 const SymMax = Symbol("SymMax");
 const SymCurr = Symbol("SymCurr");
+const SymWaits = Symbol("SymWaits");
 
 /**
  * @callback LockHandler
@@ -22,15 +20,13 @@ class Lock {
      * @throws {TypeError}
      */
     constructor(options = Object.create(null)) {
-        if (!is.plainObject(options)) {
-            throw new TypeError("options must be a plainObject");
-        }
         const { maxConcurrent = 5 } = options;
 
         if (typeof maxConcurrent !== "number") {
             throw new TypeError("maxConcurrent must be number");
         }
 
+        Object.defineProperty(this, SymWaits, { value: [] });
         Object.defineProperty(this, SymMax, { value: maxConcurrent });
         Object.defineProperty(this, SymCurr, { value: 0, writable: true });
     }
@@ -45,6 +41,15 @@ class Lock {
     }
 
     /**
+     * @member {number} running
+     * @memberof Lock#
+     * @returns {number}
+     */
+    get running() {
+        return this[SymWaits].length;
+    }
+
+    /**
      * @async
      * @function acquireOne
      * @description Acquire one spot on the locks pool.
@@ -52,51 +57,23 @@ class Lock {
      * @returns {Promise<LockHandler>}
      */
     async acquireOne() {
-        if (this[SymCurr] >= this.max) {
-            await new Promise((resolve) => {
-                const timer = setInterval(() => {
-                    if (this[SymCurr] < this.max) {
-                        clearInterval(timer);
-                        resolve();
-                    }
-                }, Lock.CHECK_INTERVAL_MS);
-            });
+        if (this.running >= this.max) {
+            await new Promise((resolve) => this[SymWaits].push(resolve));
         }
 
-        this[SymCurr]++;
-
-        return () => {
-            this[SymCurr]--;
-        };
+        return this.freeOne.bind(this);
     }
 
     /**
-     * @static
-     * @function all
-     * @description A promise.all wrapper that will lock automatically for you
+     * @function freeOne
      * @memberof Lock#
-     * @param {Promise[]} promises promise array
-     * @param {object} options lock options
-     * @returns {Promise<void>}
-     *
-     * @throws {TypeError}
+     * @returns {void}
      */
-    static all(promises = [], options) {
-        if (!Array.isArray(promises)) {
-            throw new TypeError("promises must be an Array");
+    freeOne() {
+        if (this.running - 1 < this.max) {
+            const resolve = this[SymWaits].shift();
+            resolve && resolve();
         }
-        const Locker = new Lock(options);
-
-        return Promise.all(promises.map(async(_p) => {
-            const free = await Locker.acquireOne();
-            try {
-                await _p();
-                free();
-            }
-            catch (err) {
-                free();
-            }
-        }));
     }
 }
 

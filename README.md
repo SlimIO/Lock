@@ -47,31 +47,16 @@ Promise.all([
 
 ## API
 
-<details><summary>lock(): Promise< Lock.LockHandler ></summary>
+<details><summary>acquireOne(): Promise< () => void ></summary>
 <br />
 Create a new lock counter. Return a function that you need to execute to free the counter/lock.
 
 </details>
 
-<details><summary>static all(promises: Promise[], options?: Lock.Options): Promise< any ></summary>
+<details><summary>freeOne(): void</summary>
 <br />
+free an acquired lock (or do nothing if there is no lock acquired yet).
 
-Same as Promise.all but with all Lock mechanism automatically handled for you.
-
-```js
-async function npmInstall() {
-    await new Promise((resolve) => setTimeout(resolve, 100));
-    console.log("npm install done!");
-}
-
-await Lock.all([
-    npmInstall(),
-    npmInstall(),
-    npmInstall(),
-    npmInstall(),
-    npmInstall()
-], { maxConcurrent: 3 });
-```
 </details>
 
 ## Dependencies
