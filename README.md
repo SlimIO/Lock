@@ -69,9 +69,21 @@ Create a new lock counter. Return a function that you need to execute to free th
 
 </details>
 
-<details><summary>freeOne(): void</summary>
+<details><summary>freeOne(error?: Error): void</summary>
 <br />
 free an acquired lock (or do nothing if there is no lock acquired yet).
+
+</details>
+
+<details><summary>rejectAll(errorMessage?: string): void</summary>
+<br />
+Reject all promises and available locks. This will throw an Error for each called acquireOne.
+
+</details>
+
+<details><summary>reset(): void</summary>
+<br />
+Reset the Object (will reject if any locks or promises are detected active).
 
 </details>
 

@@ -25,10 +25,10 @@ avaTest("Trigger Lock manually", async(assert) => {
 
         try {
             await new Promise((resolve) => setTimeout(resolve, 100));
-            count++;
         }
         finally {
             free();
+            count++;
         }
     }
 
@@ -56,10 +56,10 @@ avaTest("Trigger Lock with default maxConcurrent", async(assert) => {
 
         try {
             await new Promise((resolve) => setTimeout(resolve, 100));
-            count++;
         }
         finally {
             free();
+            count++;
         }
     }
 

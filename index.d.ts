@@ -8,10 +8,11 @@ declare class Lock {
     constructor(options?: Lock.Options);
     public readonly max: number;
     public readonly running: number;
-    static CHECK_INTERVAL_MS: number;
 
+    rejectAll(errorMessage?: string): void;
+    reset(): void;
     acquireOne(): Promise<() => void>;
-    freeOne(): void;
+    freeOne(error?: Error | null): void;
 }
 
 export = Lock;
