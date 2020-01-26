@@ -69,3 +69,53 @@ avaTest("Trigger Lock with default maxConcurrent", async(assert) => {
     ]);
     assert.is(count, 2);
 });
+
+avaTest("Reject all tasks (with error message)", async(assert) => {
+    assert.plan(1);
+    const asyncLocker = new Lock({ maxConcurrent: 2 });
+
+    async function npmInstall() {
+        const free = await asyncLocker.acquireOne();
+
+        try {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+        }
+        finally {
+            free();
+        }
+    }
+
+    const rejectionMsg = "Unable to achieve all installation";
+    setTimeout(() => asyncLocker.rejectAll(rejectionMsg), 50);
+
+    try {
+        await Promise.all([
+            npmInstall(),
+            npmInstall(),
+            npmInstall(),
+            npmInstall()
+        ]);
+    }
+    catch (error) {
+        assert.is(error.message, rejectionMsg);
+    }
+});
+
+avaTest("Rejected locker must throw (and not when reseted)", async(assert) => {
+    assert.plan(2);
+    const asyncLocker = new Lock({ maxConcurrent: 2 });
+    asyncLocker.rejectAll();
+
+    try {
+        await asyncLocker.acquireOne();
+    }
+    catch (error) {
+        assert.is(error.message, "Lock acquisition rejected!");
+    }
+
+    asyncLocker.reset();
+    const free = await asyncLocker.acquireOne();
+    assert.is(asyncLocker.running, 1);
+    free();
+});
+
