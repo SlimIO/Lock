@@ -77,7 +77,7 @@ free an acquired lock (or do nothing if there is no lock acquired yet).
 
 <details><summary>rejectAll(errorMessage?: string): void</summary>
 <br />
-Reject all promises and available locks. This will throw an Error for each called acquireOne.
+Reject all promises and available locks. This will throw an Error for each called acquireOne. The default error is `Lock acquisition rejected!`.
 
 </details>
 
