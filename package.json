@@ -38,7 +38,7 @@
         "@slimio/eslint-config": "^4.0.0",
         "@slimio/is": "^1.5.1",
         "@slimio/psp": "^0.10.0",
-        "ava": "^2.4.0",
+        "ava": "^3.0.0",
         "cross-env": "^7.0.0",
         "eslint": "^6.6.0",
         "husky": "^4.2.1",
