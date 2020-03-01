@@ -1,5 +1,8 @@
 "use strict";
 
+// Require Node.js Dependencies
+const EventEmitter = require("events");
+
 // CONSTANTS
 const kRejectionMessage = "Lock acquisition rejected!";
 
@@ -14,7 +17,7 @@ const SymRejected = Symbol("SymRejected");
  * @returns {void}
  */
 
-class Lock {
+class Lock extends EventEmitter {
     /**
      * @class Lock
      * @memberof Lock#
@@ -24,6 +27,7 @@ class Lock {
      * @throws {TypeError}
      */
     constructor(options = Object.create(null)) {
+        super();
         const { maxConcurrent = 5 } = options;
         if (typeof maxConcurrent !== "number") {
             throw new TypeError("maxConcurrent must be a number");
@@ -110,6 +114,7 @@ class Lock {
      */
     freeOne(error = null) {
         if (this.running > 0) {
+            this.emit("freeOne");
             this[SymCurr]--;
             const promiseArg = this[SymWaits].shift();
             if (typeof promiseArg === "undefined") {

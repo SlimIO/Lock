@@ -1,10 +1,12 @@
+import * as events from "events";
+
 declare namespace Lock {
     interface Options {
         maxConcurrent?: number;
     }
 }
 
-declare class Lock {
+declare class Lock extends events.EventEmitter {
     constructor(options?: Lock.Options);
     public readonly max: number;
     public readonly running: number;
