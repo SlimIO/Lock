@@ -1,0 +1,80 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - '@commitlint/cli > lodash':
+        patched: '2020-05-01T02:51:26.353Z'
+    - eslint > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - ava > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - '@commitlint/cli > @commitlint/load > lodash':
+        patched: '2020-05-01T02:51:26.353Z'
+    - '@commitlint/config-conventional > conventional-changelog-conventionalcommits > lodash':
+        patched: '2020-05-01T02:51:26.353Z'
+    - ava > @babel/core > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - eslint > inquirer > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - eslint > table > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - '@slimio/eslint-config > eslint > lodash':
+        patched: '2020-05-01T02:51:26.353Z'
+    - '@slimio/eslint-config > eslint-plugin-jsdoc > lodash':
+        patched: '2020-05-01T02:51:26.353Z'
+    - jsdoc > catharsis > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - jsdoc > requizzle > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - '@commitlint/cli > @commitlint/load > @commitlint/resolve-extends > lodash':
+        patched: '2020-05-01T02:51:26.353Z'
+    - ava > @babel/core > @babel/helper-module-transforms > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - '@slimio/eslint-config > babel-eslint > @babel/traverse > lodash':
+        patched: '2020-05-01T02:51:26.353Z'
+    - nyc > istanbul-lib-instrument > @babel/core > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - '@slimio/eslint-config > eslint > inquirer > lodash':
+        patched: '2020-05-01T02:51:26.353Z'
+    - '@slimio/eslint-config > eslint > table > lodash':
+        patched: '2020-05-01T02:51:26.353Z'
+    - '@commitlint/cli > @commitlint/lint > @commitlint/parse > conventional-commits-parser > lodash':
+        patched: '2020-05-01T02:51:26.353Z'
+    - '@commitlint/cli > @commitlint/lint > @commitlint/rules > @commitlint/ensure > lodash':
+        patched: '2020-05-01T02:51:26.353Z'
+    - ava > @ava/babel-preset-stage-4 > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - '@slimio/eslint-config > babel-eslint > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-01T02:51:26.353Z'
+    - ava > @ava/babel-preset-transform-test-files > babel-plugin-espower > @babel/generator > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - '@slimio/eslint-config > babel-eslint > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-01T02:51:26.353Z'
+    - ava > @ava/babel-preset-stage-4 > @babel/plugin-transform-dotall-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - ava > @ava/babel-preset-transform-test-files > babel-plugin-espower > @babel/generator > @babel/types > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - ava > @ava/babel-preset-stage-4 > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - '@slimio/eslint-config > babel-eslint > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-01T02:51:26.353Z'
+    - ava > @ava/babel-preset-stage-4 > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - ava > @ava/babel-preset-stage-4 > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - ava > @ava/babel-preset-stage-4 > @babel/plugin-transform-modules-commonjs > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-01T02:51:26.353Z'
