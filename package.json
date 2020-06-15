@@ -1,67 +1,72 @@
 {
-    "name": "@slimio/lock",
-    "version": "0.5.0",
-    "description": "SlimIO Asynchronous Lock Handler",
-    "main": "index.js",
-    "scripts": {
-        "start": "node index.js",
-        "prepublishOnly": "pkg-ok",
-        "test": "cross-env psp && nyc --reporter=lcov ava --verbose",
-        "doc": "jsdoc -c ./jsdoc.json -r -R ./README.md -P ./package.json --verbose",
-        "coverage": "codecov",
-        "report": "nyc report --reporter=html"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/SlimIO/Lock.git"
-    },
-    "keywords": [
-        "lock",
-        "mutex",
-        "asynchronous"
-    ],
-    "files": [
-        "index.js",
-        "index.d.ts"
-    ],
-    "author": "SlimIO",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/SlimIO/Lock/issues"
-    },
-    "homepage": "https://github.com/SlimIO/Lock#readme",
-    "dependencies": {},
-    "devDependencies": {
-        "@commitlint/cli": "^8.2.0",
-        "@commitlint/config-conventional": "^8.2.0",
-        "@escommunity/minami": "^1.0.0",
-        "@slimio/eslint-config": "^4.1.0",
-        "@slimio/is": "^1.5.1",
-        "@slimio/psp": "^0.11.1",
-        "ava": "^3.8.2",
-        "codecov": "^3.7.0",
-        "cross-env": "^7.0.2",
-        "eslint": "^7.0.0",
-        "husky": "^4.2.5",
-        "jsdoc": "^3.6.4",
-        "nyc": "^15.0.1",
-        "pkg-ok": "^2.3.1"
-    },
-    "engines": {
-        "node": ">=12"
-    },
-    "husky": {
-        "hooks": {
-            "pre-push": "cross-env eslint index.js && npm test",
-            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-        }
-    },
-    "nyc": {
-        "check-coverage": true,
-        "per-file": false,
-        "lines": 95,
-        "statements": 95,
-        "functions": 98,
-        "branches": 90
+  "name": "@slimio/lock",
+  "version": "0.5.0",
+  "description": "SlimIO Asynchronous Lock Handler",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "prepublishOnly": "pkg-ok",
+    "test": "cross-env psp && nyc --reporter=lcov ava --verbose",
+    "doc": "jsdoc -c ./jsdoc.json -r -R ./README.md -P ./package.json --verbose",
+    "coverage": "codecov",
+    "report": "nyc report --reporter=html",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SlimIO/Lock.git"
+  },
+  "keywords": [
+    "lock",
+    "mutex",
+    "asynchronous"
+  ],
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
+  "author": "SlimIO",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SlimIO/Lock/issues"
+  },
+  "homepage": "https://github.com/SlimIO/Lock#readme",
+  "dependencies": {
+    "snyk": "^1.339.3"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "@escommunity/minami": "^1.0.0",
+    "@slimio/eslint-config": "^4.1.0",
+    "@slimio/is": "^1.5.1",
+    "@slimio/psp": "^0.11.1",
+    "ava": "^3.8.2",
+    "codecov": "^3.7.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^7.0.0",
+    "husky": "^4.2.5",
+    "jsdoc": "^3.6.4",
+    "nyc": "^15.0.1",
+    "pkg-ok": "^2.3.1"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "cross-env eslint index.js && npm test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "nyc": {
+    "check-coverage": true,
+    "per-file": false,
+    "lines": 95,
+    "statements": 95,
+    "functions": 98,
+    "branches": 90
+  },
+  "snyk": true
 }
