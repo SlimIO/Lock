@@ -1,3 +1,4 @@
+/* eslint-disable lines-between-class-members */
 "use strict";
 
 // Require Node.js Dependencies
@@ -6,18 +7,17 @@ const EventEmitter = require("events");
 // CONSTANTS
 const kRejectionMessage = "Lock acquisition rejected!";
 
-// SYMBOLS
-const SymMax = Symbol("SymMax");
-const SymCurr = Symbol("SymCurr");
-const SymWaits = Symbol("SymWaits");
-const SymRejected = Symbol("SymRejected");
-
 /**
  * @callback LockHandler
  * @returns {void}
  */
 
 class Lock extends EventEmitter {
+    #rejected = false;
+    #waitings = [];
+    #max = 5;
+    #current = 0;
+
     /**
      * @class Lock
      * @memberof Lock#
@@ -33,10 +33,7 @@ class Lock extends EventEmitter {
             throw new TypeError("maxConcurrent must be a number");
         }
 
-        Object.defineProperty(this, SymRejected, { value: false, writable: true });
-        Object.defineProperty(this, SymWaits, { value: [] });
-        Object.defineProperty(this, SymMax, { value: maxConcurrent });
-        Object.defineProperty(this, SymCurr, { value: 0, writable: true });
+        this.#max = maxConcurrent;
     }
 
     /**
@@ -45,7 +42,7 @@ class Lock extends EventEmitter {
      * @returns {number}
      */
     get max() {
-        return this[SymMax];
+        return this.#max;
     }
 
     /**
@@ -54,7 +51,7 @@ class Lock extends EventEmitter {
      * @returns {number}
      */
     get running() {
-        return this[SymCurr];
+        return this.#current;
     }
 
     /**
@@ -65,10 +62,10 @@ class Lock extends EventEmitter {
      * @returns {void}
      */
     rejectAll(errorMessage) {
-        this[SymRejected] = true;
+        this.#rejected = true;
         const localErrorMessage = typeof errorMessage === "string" ? errorMessage : kRejectionMessage;
 
-        while (this[SymCurr] > 0) {
+        while (this.#current > 0) {
             this.freeOne(new Error(localErrorMessage));
         }
     }
@@ -80,10 +77,10 @@ class Lock extends EventEmitter {
      * @returns {void}
      */
     reset() {
-        if (this[SymCurr] > 0) {
+        if (this.#current > 0) {
             this.rejectAll();
         }
-        this[SymRejected] = false;
+        this.#rejected = false;
     }
 
     /**
@@ -94,14 +91,14 @@ class Lock extends EventEmitter {
      * @returns {Promise<LockHandler>}
      */
     async acquireOne() {
-        if (this[SymRejected]) {
+        if (this.#rejected) {
             throw new Error(kRejectionMessage);
         }
 
-        if (this[SymCurr] >= this.max) {
-            await new Promise((resolve, reject) => this[SymWaits].push([resolve, reject]));
+        if (this.#current >= this.max) {
+            await new Promise((resolve, reject) => this.#waitings.push([resolve, reject]));
         }
-        this[SymCurr]++;
+        this.#current++;
 
         return () => this.freeOne();
     }
@@ -115,8 +112,8 @@ class Lock extends EventEmitter {
     freeOne(error = null) {
         if (this.running > 0) {
             this.emit("freeOne");
-            this[SymCurr]--;
-            const promiseArg = this[SymWaits].shift();
+            this.#current--;
+            const promiseArg = this.#waitings.shift();
             if (typeof promiseArg === "undefined") {
                 return;
             }

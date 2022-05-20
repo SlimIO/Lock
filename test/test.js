@@ -16,7 +16,7 @@ avaTest("maxConcurrent must be typeof number", (assert) => {
     })
 });
 
-avaTest("Trigger Lock manually", async(assert) => {
+avaTest("Trigger Lock manually", async (assert) => {
     const asyncLocker = new Lock({ maxConcurrent: 3 });
     let count = 0;
 
@@ -46,7 +46,7 @@ avaTest("Trigger Lock manually", async(assert) => {
     assert.is(count, 9);
 });
 
-avaTest("Trigger Lock with default maxConcurrent", async(assert) => {
+avaTest("Trigger Lock with default maxConcurrent", async (assert) => {
     const asyncLocker = new Lock();
     asyncLocker.freeOne();
     let count = 0;
@@ -70,7 +70,7 @@ avaTest("Trigger Lock with default maxConcurrent", async(assert) => {
     assert.is(count, 2);
 });
 
-avaTest("Reject all tasks (with error message)", async(assert) => {
+avaTest("Reject all tasks (with error message)", async (assert) => {
     assert.plan(1);
     const asyncLocker = new Lock({ maxConcurrent: 2 });
 
@@ -101,7 +101,7 @@ avaTest("Reject all tasks (with error message)", async(assert) => {
     }
 });
 
-avaTest("Rejected locker must throw (and not when reseted)", async(assert) => {
+avaTest("Rejected locker must throw (and not when reseted)", async (assert) => {
     assert.plan(2);
     const asyncLocker = new Lock({ maxConcurrent: 2 });
     asyncLocker.rejectAll();
