@@ -2,7 +2,6 @@
 ![version](https://img.shields.io/badge/dynamic/json.svg?url=https://raw.githubusercontent.com/SlimIO/Lock/master/package.json&query=$.version&label=Version)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/SlimIO/Lock/commit-activity)
 ![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)
-![dep](https://img.shields.io/david/SlimIO/Lock)
 ![size](https://img.shields.io/bundlephobia/min/@slimio/lock)
 [![Known Vulnerabilities](https://snyk.io//test/github/SlimIO/Lock/badge.svg?targetFile=package.json)](https://snyk.io//test/github/SlimIO/Lock?targetFile=package.json)
 [![Build Status](https://travis-ci.com/SlimIO/Lock.svg?branch=master)](https://travis-ci.com/SlimIO/Lock)
@@ -10,7 +9,7 @@
 SlimIO Asynchronous Handler Mutex "Like" Lock. This package has been created to easily lock parallel execution of JavaScript Asynchronous function.
 
 ## Requirements
-- [Node.js](https://nodejs.org/en/) v12 or higher
+- [Node.js](https://nodejs.org/en/) v14 or higher
 
 ## Getting Started
 
@@ -85,10 +84,6 @@ Reject all promises and available locks. This will throw an Error for each calle
 Reset the Object (will reject if any locks or promises are detected active).
 
 </details>
-
-## Dependencies
-
-This project have no dependencies.
 
 ## License
 MIT
